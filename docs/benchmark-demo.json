@@ -1,0 +1,65 @@
+{
+  "measuredAtUtc": "2026-10-09T02:52:57Z",
+  "clientPlatform": "macOS-26.6.2-arm64-arm-64bit",
+  "mode": "demo",
+  "acknowledgedEvents": 10000,
+  "verifiedEvents": 10000,
+  "verifiedWindows": 24,
+  "ingestionSeconds": 0.152,
+  "acknowledgedEventsPerSecond": 65601.3,
+  "endToEndSeconds": 7.377,
+  "initialStats": {
+    "outOfOrderSeconds": 2,
+    "windowSizeSeconds": 5,
+    "acceptedByNode": 933,
+    "mode": "demo",
+    "demo": {
+      "openWindows": 0,
+      "lateEvents": 0,
+      "watermark": 1791514368112
+    },
+    "cache": {
+      "scope": "local-demo",
+      "ttlSeconds": 30,
+      "counters": {
+        "lookups": 105,
+        "hits": 102,
+        "databaseReads": 3,
+        "misses": 3,
+        "redisErrors": 0
+      },
+      "avoidedReadsPercent": 97.14285714285714
+    },
+    "nodeId": "98393caf-be0a-4ff5-acf8-ca0b2e7aa116"
+  },
+  "finalStats": {
+    "outOfOrderSeconds": 2,
+    "windowSizeSeconds": 5,
+    "acceptedByNode": 10933,
+    "mode": "demo",
+    "demo": {
+      "openWindows": 0,
+      "lateEvents": 0,
+      "watermark": 1791514375163
+    },
+    "cache": {
+      "scope": "local-demo",
+      "ttlSeconds": 30,
+      "counters": {
+        "lookups": 369,
+        "hits": 342,
+        "databaseReads": 27,
+        "misses": 27,
+        "redisErrors": 0
+      },
+      "avoidedReadsPercent": 92.6829268292683
+    },
+    "nodeId": "98393caf-be0a-4ff5-acf8-ca0b2e7aa116"
+  },
+  "caveats": [
+    "Synthetic isolated workload; not production data.",
+    "Ingestion throughput includes HTTP client serialization and broker acknowledgements in Kafka mode.",
+    "Five-second windows have two-second out-of-order tolerance.",
+    "Demo mode does not exercise Kafka, Flink, or Redis."
+  ]
+}

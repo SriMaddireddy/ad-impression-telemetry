@@ -1,0 +1,54 @@
+name: Build and verify telemetry
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: mvn -B verify
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose up --build -d
+      - name: Wait for API and Flink job
+        run: |
+          for i in $(seq 1 150); do
+            if curl -fsS http://127.0.0.1:8090/actuator/health/readiness | grep -q UP && curl -fsS http://127.0.0.1:8091/jobs/overview | grep -q RUNNING; then exit 0; fi
+            sleep 2
+          done
+          docker compose logs
+          exit 1
+      - run: python3 scripts/smoke.py --expect-mode kafka > smoke-kafka.json
+      - run: python3 scripts/kafka_checks.py > kafka-checks.json
+      - run: python3 scripts/load.py --count 1000000 --output benchmark-kafka.json
+      - name: Scale ingestion to two instances
+        run: |
+          docker compose up -d --scale ingest=2 ingest
+          sleep 10
+          python3 scripts/smoke.py --expect-mode kafka > smoke-scaled.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: telemetry-verification
+          path: |
+            *-kafka.json
+            kafka-checks.json
+            smoke-scaled.json
+      - if: always()
+        run: docker compose logs > docker-compose.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-logs
+          path: docker-compose.log
+      - if: always()
+        run: docker compose down

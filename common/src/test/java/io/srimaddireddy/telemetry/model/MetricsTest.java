@@ -1,0 +1,11 @@
+package io.srimaddireddy.telemetry.model;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+class MetricsTest {
+ @Test void preciseCountersAndRates(){Totals t=new Totals();for(int i=0;i<200;i++)t.add(new AdEvent("i"+i,"c","IMPRESSION",1000,.01));for(int i=0;i<10;i++)t.add(new AdEvent("k"+i,"c","CLICK",1000,0));t.add(new AdEvent("v","c","CONVERSION",1000,5));var w=WindowReport.from("c",0,5000,t,new CampaignConfig("c","C",.15,500));assertEquals(200,w.impressions);assertEquals(10,w.clicks);assertEquals(1,w.conversions);assertEquals(.05,w.ctr,1e-9);assertEquals(.1,w.conversionRate,1e-9);assertEquals(2,w.spend,1e-9);assertEquals(2.5,w.roas,1e-9);assertFalse(w.anomaly);}
+ @Test void anomaliesRespectVolumeAndCtrThresholds(){var t=new Totals();t.impressions=101;t.clicks=30;var w=WindowReport.from("c",0,5000,t,new CampaignConfig("c","C",.15,100));assertTrue(w.anomaly);assertTrue(w.anomalyReason.contains("CTR"));assertTrue(w.anomalyReason.contains("burst"));}
+ @Test void emptyWindowsAreFinite(){var w=WindowReport.from("c",0,5000,new Totals(),new CampaignConfig("c","C",.15,500));assertEquals(0,w.ctr);assertEquals(0,w.conversionRate);assertEquals(0,w.roas);}
+ @Test void mergePreservesTotals(){var a=new Totals().add(new AdEvent("i","c","IMPRESSION",1,2));var b=new Totals().add(new AdEvent("v","c","CONVERSION",1,4));a.merge(b);assertEquals(1,a.impressions);assertEquals(1,a.conversions);assertEquals(2,a.spend);assertEquals(4,a.revenue);}
+ @Test void schemaRejectsMalformedEvents(){assertThrows(IllegalArgumentException.class,()->new AdEvent("a","c","OTHER",1,0).validate(false));assertThrows(IllegalArgumentException.class,()->new AdEvent("a","c","CLICK",1,1).validate(false));assertThrows(IllegalArgumentException.class,()->new AdEvent("a","c","CONVERSION",1,Double.NaN).validate(false));assertThrows(IllegalArgumentException.class,()->new AdEvent("a","c","HEARTBEAT",1,0).validate(false));new AdEvent("a","_clock","HEARTBEAT",1,0).validate(true);}
+ @Test void eventAndWindowJsonRoundTrip(){AdEvent e=new AdEvent("a","c","CLICK",1000,0);assertEquals("CLICK",Json.read(Json.write(e),AdEvent.class).type);var w=WindowReport.from("c",0,5000,new Totals(),new CampaignConfig("c","C",.2,100));assertEquals(w.key,Json.read(Json.write(w),WindowReport.class).key);}
+}

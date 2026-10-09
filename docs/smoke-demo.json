@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "mode": "demo",
+  "eventsVerified": 933,
+  "closedWindows": 2,
+  "anomaliesVerified": 1,
+  "cacheChecks": 100,
+  "databaseReadsDuringChecks": 0,
+  "clientConfigP95Ms": 1.7707079532556236,
+  "windowStart": 1791514175000
+}

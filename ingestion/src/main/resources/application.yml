@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ad-telemetry
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:file:./data/configs;AUTO_SERVER=TRUE;WRITE_DELAY=0}
+    username: ${DATABASE_USER:sa}
+    password: ${DATABASE_PASSWORD:}
+  sql:
+    init:
+      mode: always
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${PORT:8090}
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+telemetry:
+  mode: ${PIPELINE_MODE:demo}
+  kafka: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  redis-host: ${REDIS_HOST:localhost}
+  redis-port: ${REDIS_PORT:6379}
+  heartbeat-enabled: ${HEARTBEAT_ENABLED:true}
+  config-ttl: 30
