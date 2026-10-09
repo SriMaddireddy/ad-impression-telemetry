@@ -4,6 +4,10 @@ A reproducible Java streaming lab: HTTP ingestion → Kafka → Apache Flink fiv
 
 All impressions, clicks, and conversions are **synthetic**. The standalone demo uses a Java window engine and in-memory cache; it does not run Kafka, Flink, or Redis. Benchmark reports state which mode was actually measured.
 
+## Observed verification
+
+All 15 Java tests and the full Docker CI passed. The synthetic Kafka/Flink benchmark verified **1,000,000 events across 96 windows** at **58,103 acknowledged events/second** on a GitHub runner. Invalid/late dead letters, completed checkpoints, Redis replay, and a two-ingestion-instance smoke check passed. See [measured reports and limits](docs/VERIFICATION.md).
+
 ## Full pipeline
 
 Install Docker with Compose, then run:

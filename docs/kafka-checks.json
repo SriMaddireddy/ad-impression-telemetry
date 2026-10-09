@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "dlqReasons": [
+    "INVALID_EVENT",
+    "LATE_EVENT"
+  ],
+  "completedCheckpoints": 2,
+  "idempotentProjectionReplay": true
+}

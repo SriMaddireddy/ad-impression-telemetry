@@ -1,0 +1,57 @@
+{
+  "measuredAtUtc": "2026-10-09T03:21:47Z",
+  "clientPlatform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "mode": "kafka",
+  "acknowledgedEvents": 1000000,
+  "verifiedEvents": 1000000,
+  "verifiedWindows": 96,
+  "ingestionSeconds": 17.211,
+  "acknowledgedEventsPerSecond": 58103.63,
+  "endToEndSeconds": 22.768,
+  "initialStats": {
+    "nodeId": "2c3daaf3-f44f-44e7-9e4a-9362f8f6716c",
+    "outOfOrderSeconds": 2,
+    "windowSizeSeconds": 5,
+    "acceptedByNode": 933,
+    "mode": "kafka",
+    "demo": {},
+    "cache": {
+      "counters": {
+        "lookups": 105,
+        "hits": 102,
+        "databaseReads": 3,
+        "misses": 3,
+        "redisErrors": 0
+      },
+      "avoidedReadsPercent": 97.14285714285714,
+      "scope": "shared-redis",
+      "ttlSeconds": 30
+    }
+  },
+  "finalStats": {
+    "nodeId": "2c3daaf3-f44f-44e7-9e4a-9362f8f6716c",
+    "outOfOrderSeconds": 2,
+    "windowSizeSeconds": 5,
+    "acceptedByNode": 1000933,
+    "mode": "kafka",
+    "demo": {},
+    "cache": {
+      "counters": {
+        "lookups": 24201,
+        "hits": 24175,
+        "databaseReads": 26,
+        "misses": 26,
+        "redisErrors": 0
+      },
+      "avoidedReadsPercent": 99.89256642287508,
+      "scope": "shared-redis",
+      "ttlSeconds": 30
+    }
+  },
+  "caveats": [
+    "Synthetic isolated workload; not production data.",
+    "Ingestion throughput includes HTTP client serialization and broker acknowledgements in Kafka mode.",
+    "Five-second windows have two-second out-of-order tolerance.",
+    "Demo mode does not exercise Kafka, Flink, or Redis."
+  ]
+}

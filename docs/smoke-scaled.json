@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "mode": "kafka",
+  "eventsVerified": 933,
+  "closedWindows": 2,
+  "anomaliesVerified": 1,
+  "cacheChecks": 100,
+  "databaseReadsDuringChecks": 0,
+  "clientConfigP95Ms": 3.986099000002241,
+  "windowStart": 1791516120000
+}
