@@ -17,14 +17,16 @@ duplicate/missing count effects and accepted arithmetic roundoff. The fixture
 does not exercise Java, Kafka, Flink or Redis.
 
 The current cloud runtime has Java 21. Maven verify was attempted but dependency
-resolution failed because repo.maven.apache.org could not resolve. Hosted CI
-must verify Java 17, all Java tests, the real Kafka/Flink pipeline, one million
-events and the scaled ingestion smoke before this milestone is accepted.
+resolution failed because repo.maven.apache.org could not resolve. [Hosted CI run 43451778980](https://github.com/SriMaddireddy/ad-impression-telemetry/actions/runs/43451778980)
+passed on commit `caaaf061b440982597cf68c58fc068d6f7c7e497`.
+It verified Java 17, all Java tests, the seven Python checks, the real
+Kafka/Flink pipeline, one million events with count and money verification,
+and the two-instance ingestion smoke. This milestone is accepted.
 
 ## Finite remaining completion scope
 
-1. Verify this milestone's Java and full-stack CI, inspect measured reports and
-   resolve any correctness failures in its demonstrated scope.
+1. The benchmark-integrity milestone passed Java and full-stack CI. Its
+   telemetry-verification artifact contains the current measured reports.
 2. Audit replay, late-window handling, projection retention and configuration
    invalidation against the existing architecture and tests. Fix critical
    demonstrated defects and document operating limits.
