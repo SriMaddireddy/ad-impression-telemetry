@@ -18,7 +18,7 @@ public class TelemetryJob {
  public static final OutputTag<String> INVALID=new OutputTag<String>("invalid"){};
  public static final OutputTag<AdEvent> LATE=new OutputTag<AdEvent>("late"){};
  public static class Parse extends ProcessFunction<String,AdEvent>{
-  public void processElement(String value,Context context,Collector<AdEvent> out){try{AdEvent e=Json.read(value,AdEvent.class);e.validate(true);out.collect(e);}catch(IllegalArgumentException e){context.output(INVALID,Json.write(java.util.Map.of("reason","INVALID_EVENT","raw",value)));}}
+  public void processElement(String value,Context context,Collector<AdEvent> out){try{AdEvent e=Json.read(value,AdEvent.class);if(e==null)throw new IllegalArgumentException("Null event");e.validate(true);out.collect(e);}catch(IllegalArgumentException e){context.output(INVALID,Json.write(java.util.Map.of("reason","INVALID_EVENT","raw",value)));}}
  }
  private static String env(String key,String fallback){return System.getenv().getOrDefault(key,fallback);}
  private static KafkaSink<String> sink(String bootstrap,String topic){Properties p=new Properties();p.setProperty("enable.idempotence","true");p.setProperty("acks","all");return KafkaSink.<String>builder().setBootstrapServers(bootstrap).setKafkaProducerConfig(p).setDeliveryGuarantee(DeliveryGuarantee.AT_LEAST_ONCE).setRecordSerializer(KafkaRecordSerializationSchema.builder().setTopic(topic).setValueSerializationSchema(new SimpleStringSchema()).build()).build();}

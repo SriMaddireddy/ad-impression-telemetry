@@ -1,5 +1,12 @@
 # Technical status
 
+## Final audit, 2026-11-16 UTC
+
+See [completion audit](COMPLETION.md) for the raw-null parser correction,
+production Lua replay/retention checks and reviewed recovery/cache limits.
+Acceptance is pending hosted CI on this audit commit. Transition to
+`autonomous-crm-simulator` after that gate passes.
+
 ## Benchmark integrity milestone, 2026-11-13 UTC
 
 AI-assisted implementation and verification by ChatGPT Work.
