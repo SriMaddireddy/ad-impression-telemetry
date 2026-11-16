@@ -4,8 +4,10 @@
 
 See [completion audit](COMPLETION.md) for the raw-null parser correction,
 production Lua replay/retention checks and reviewed recovery/cache limits.
-Acceptance is pending hosted CI on this audit commit. Transition to
-`autonomous-crm-simulator` after that gate passes.
+Hosted CI passed on audit commit `b1246424497fb41920939658bf051d0cd7c1a173`.
+The bounded local lab scope is complete. The next active project is
+`autonomous-crm-simulator`.
+[Verified run 43901080001](https://github.com/SriMaddireddy/ad-impression-telemetry/actions/runs/43901080001).
 
 ## Benchmark integrity milestone, 2026-11-13 UTC
 
@@ -30,7 +32,7 @@ It verified Java 17, all Java tests, the seven Python checks, the real
 Kafka/Flink pipeline, one million events with count and money verification,
 and the two-instance ingestion smoke. This milestone is accepted.
 
-## Finite remaining completion scope
+## Earlier completion checklist (closed by final audit)
 
 1. The benchmark-integrity milestone passed Java and full-stack CI. Its
    telemetry-verification artifact contains the current measured reports.

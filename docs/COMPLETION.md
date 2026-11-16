@@ -27,8 +27,9 @@ not establish the real sink's eviction behavior.
 Ten stdlib Python checks pass in the cloud, including benchmark corruption,
 source-script extraction and failure cleanup. Java/Maven verification was
 attempted here but dependency resolution could not reach Maven Central.
-Acceptance requires the audit commit's hosted Java 17 and full Docker pipeline
-CI. That workflow runs all Java tests, malformed and late dead letters,
+[Audit CI run 43901080001](https://github.com/SriMaddireddy/ad-impression-telemetry/actions/runs/43901080001)
+passed on commit `b1246424497fb41920939658bf051d0cd7c1a173` with Java 17 and the
+full Docker pipeline. That workflow runs all Java tests, malformed and late dead letters,
 completed-checkpoint checks, actual Redis Lua replay/retention, a one-million
 event benchmark with exact count and money checks, and two ingestion instances.
 Its telemetry-verification artifact records current measured results.
@@ -59,7 +60,7 @@ fit that cap. The local unauthenticated stack must bind to loopback.
 
 ## Completion boundary
 
-Once the audit commit passes hosted CI, this local synthetic lab meets its
+The audit commit passed hosted CI. This local synthetic lab meets its
 bounded completion gate. Strict configuration consistency, global event-ID
 deduplication, cluster-wide failover, production authentication and new features
 are deferred. Continue with autonomous-crm-simulator for the backend review.
